@@ -1,5 +1,10 @@
 from tensorflow.python.client import device_lib
-print(device_lib.list_local_devices())
+device_info = device_lib.list_local_devices()
+file = open("Spell_CPU_GPU_info.txt","w")
+file.write(str(device_info))
+file.close()
 
-from keras import backend as K 
-K.tensorflow_backed._get_available_gpus()
+
+# from keras import backend as K 
+# K.tensorflow_backed._get_available_gpus()
+
