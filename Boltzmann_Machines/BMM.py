@@ -9,6 +9,9 @@ import torch.optim as optim
 import torch.utils.data
 from torch.autograd import Variable
 
+# Cause you can't print in Spell
+file = open("BM_loss.txt","w")
+
 # Importing the Dataset
 movies = pd.read_csv('m1-1m/movies.dat',sep="::",header=None,engine='python',encoding='latin-1')
 users = pd.read_csv('m1-1m/users.dat',sep="::",header=None,engine='python',encoding='latin-1')
@@ -98,7 +101,7 @@ for epoch in range(1,nb_epoch+1):
 		rbm.train(v0,vk,ph0,phk)
 		train_loss += torch.mean(torch.abs(v0[v0>=0]-vk[v0>=0]))
 		s += 1.
-	print("epoch: " + str(epoch) + " ,loss: " + str(train_loss/s))
+	file.write("epoch: " + str(epoch) + " ,loss: " + str(train_loss/s))
 
 # Testing the RBM
 test_loss = 0
@@ -111,7 +114,8 @@ for id_user in range(nb_users):
 		_,v = rbm.sample_v(h)	
 		test_loss += torch.mean(torch.abs(vt[vt>=0]-v[vt>=0]))
 		s += 1.
-print("test loss: " + str(test_loss/s))
+file.write("test loss: " + str(test_loss/s))
+file.close()
 
 
 
