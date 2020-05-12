@@ -36,16 +36,29 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 classifier = Sequential()
-classifier.add(Dense(units = 13, kernel_initializer = 'uniform', activation = 'relu', input_dim = 26))
+classifier.add(Dense(units = 20, kernel_initializer = 'uniform', activation = 'relu', input_dim = 26))
+# classifier.add(Dense(units = 13, kernel_initializer = 'uniform', activation = 'relu'))
 classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
-classifier.fit(x_train, y_train, batch_size = 10, epochs = 100)
+classifier.fit(x_train, y_train, batch_size = 5, epochs = 100)
 
 y_pred = classifier.predict(x_test)
 y_pred = (y_pred > 0.5)
 
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+import datetime
+file = open('ANN_test.txt',"w")
+now = datetime.datetime.now()
+file.write("Runtime: " + now.strftime("%Y-%m-%d %H:%M:%S") + "\n")
+accuracy = (cm[0][0] + cm[1][1]) / len(y_pred)
+file.write("Accuracy: " + str(accuracy))
+file.close()
+
+
+# from keras.models import load_model
+# classifier.save('taiwan_default.h5')
 
 
 
