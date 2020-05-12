@@ -40,7 +40,7 @@ from keras.models import load_model
 
 for i in range(1,27):
 	classifier = Sequential()
-	classifier.add(Dense(units = i, kernel_initializer = 'uniform', activation = 'sigmoid', input_dim = 26))
+	classifier.add(Dense(units = i, kernel_initializer = 'uniform', activation = 'relu', input_dim = 26))
 	# classifier.add(Dense(units = 13, kernel_initializer = 'uniform', activation = 'relu'))
 	classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 	classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
@@ -59,6 +59,7 @@ for i in range(1,27):
 	file.close()
 
 	classifier.save(name + ".h5")
+
 
 
 
