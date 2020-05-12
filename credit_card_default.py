@@ -36,7 +36,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 classifier = Sequential()
-classifier.add(Dense(units = 15, kernel_initializer = 'uniform', activation = 'relu', input_dim = 26))
+classifier.add(Dense(units = 15, kernel_initializer = 'uniform', activation = 'sigmoid', input_dim = 26))
 # classifier.add(Dense(units = 13, kernel_initializer = 'uniform', activation = 'relu'))
 classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
