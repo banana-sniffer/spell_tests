@@ -10,9 +10,9 @@ y = dataset.iloc[:, 10].values
 # gamma = True, background = False
 for i in range(len(y)):
 	if y[i] == "g":
-		y[i] = True
+		y[i] = 1
 	else:
-		y[i] = False
+		y[i] = 0
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
@@ -35,13 +35,20 @@ classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
 y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.5)
 
+predicted_values = []
+for i in range(len(y_pred)):
+	if (y_pred[i][0] == True):
+		predicted_values.append(1)
+	else:
+		predicted_values.append(0)
+
 from keras.models import load_model
 classifier.save('MAGIC_Telescope.h5')
 
 from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
+cm = confusion_matrix(y_test, predicted_values)
 
-accuracy = (cm[0][0] + cm[1][1]) / len(y_pred)
+accuracy = (cm[0][0] + cm[1][1]) / len(predicted_values)
 file = open("MAGIC_Telescope.txt","w")
 file.write("Accuracy: " + str(accuracy))
 file.close()
