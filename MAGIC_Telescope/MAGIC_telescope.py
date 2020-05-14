@@ -28,27 +28,32 @@ from keras.layers import Dense
 
 classifier = Sequential()
 classifier.add(Dense(units = 7, kernel_initializer = 'uniform', activation = 'relu', input_dim = 10))
-classifier.add(Dense(units = 7, kernel_initializer = 'uniform', activation = 'relu'))
+# classifier.add(Dense(units = 7, kernel_initializer = 'uniform', activation = 'relu'))
 classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
 y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.5)
 
-predicted_values = []
-for i in range(len(y_pred)):
-	if (y_pred[i][0] == True):
-		predicted_values.append(1)
-	else:
-		predicted_values.append(0)
-
-predicted_values = np.array(predicted_values)
-
 from keras.models import load_model
 classifier.save('MAGIC_Telescope.h5')
 
 from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, predicted_values)
+cm_predicted_values = []
+for i in range(len(y_pred)):
+	if (y_pred[i][0] == 1):
+		cm_predicted_values.append(1)
+	else:
+		cm_predicted_values.append(0)
+
+cm_y_test = []
+for i in range(len(y_test)):
+	if (y_test[i] == 1):
+		cm_y_test.append(1)
+	else:
+		cm_y_test.append(0)
+
+cm = confusion_matrix(cm_y_test, cm_predicted_values)
 
 accuracy = (cm[0][0] + cm[1][1]) / len(predicted_values)
 file = open("MAGIC_Telescope.txt","w")
