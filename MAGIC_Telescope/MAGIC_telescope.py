@@ -8,11 +8,11 @@ X = dataset.iloc[:, 0:10].values
 y = dataset.iloc[:, 10].values
 
 # gamma = 1, background = 0
-for i in range(len(y[:,0])):
-	if y[:,0][i] == "g":
-		y[:,0][i] = 1
+for i in range(len(y)):
+	if y[i] == "g":
+		y[i] = 1
 	else:
-		y[:,0][i] = 0
+		y[i] = 0
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
