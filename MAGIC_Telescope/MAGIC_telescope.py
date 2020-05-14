@@ -42,6 +42,8 @@ for i in range(len(y_pred)):
 	else:
 		predicted_values.append(0)
 
+predicted_values = np.array(predicted_values)
+
 from keras.models import load_model
 classifier.save('MAGIC_Telescope.h5')
 
