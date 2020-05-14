@@ -55,7 +55,7 @@ for i in range(len(y_test)):
 
 cm = confusion_matrix(cm_y_test, cm_predicted_values)
 
-accuracy = (cm[0][0] + cm[1][1]) / len(predicted_values)
+accuracy = (cm[0][0] + cm[1][1]) / len(cm_predicted_values)
 file = open("MAGIC_Telescope.txt","w")
 file.write("Accuracy: " + str(accuracy))
 file.close()
