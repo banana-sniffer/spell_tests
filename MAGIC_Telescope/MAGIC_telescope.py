@@ -8,11 +8,11 @@ X = dataset.iloc[:, 0:10].values
 y = dataset.iloc[:, 10].values
 
 # gamma = 1, background = 0
-for i in range(len(X[:,0])):
-	if X[:,0][i] == "g":
-		X[:,0][i] = 1
+for i in range(len(y[:,0])):
+	if y[:,0][i] == "g":
+		y[:,0][i] = 1
 	else:
-		X[:,0][i] = 0
+		y[:,0][i] = 0
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
@@ -34,8 +34,24 @@ classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = [
 classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
 y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.5)
+
+from keras.models import load_model
+classifier.save('MAGIC_Telescope.h5')
+
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+accuracy = accuracy = (cm[0][0] + cm[1][1]) / len(y_pred)
+file = open("MAGIC_Telescope.txt","w")
+file.write("Accuracy: " + str(accuracy))
+file.close()
+
+
+
+
+
+
+
 
 
 
