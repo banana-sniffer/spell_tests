@@ -28,12 +28,12 @@ from keras.layers import Dense
 from sklearn.metrics import confusion_matrix
 file = open("MAGIC_Telescope_accuracy_single.txt","w")
 file.write("# of Hidden Nodes" + "          " + "Accuracy\n")
-for i in range(1,11):
+for j in range(1,11):
 	classifier = Sequential()
-	classifier.add(Dense(units = i, kernel_initializer = 'uniform', activation = 'relu', input_dim = 10))
+	classifier.add(Dense(units = j, kernel_initializer = 'uniform', activation = 'relu', input_dim = 10))
 	classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 	classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
-	classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
+	classifier.fit(X_train, y_train, batch_size = 16, epochs = 75)
 	y_pred = classifier.predict(X_test)
 	y_pred = (y_pred > 0.5)
 	
@@ -51,7 +51,7 @@ for i in range(1,11):
 			cm_y_test.append(0)
 	cm = confusion_matrix(cm_y_test, cm_predicted_values)
 	accuracy = (cm[0][0] + cm[1][1]) / len(cm_predicted_values)
-	file.write(str(i) + "                 " + "          " + str(accuracy) + "\n")
+	file.write(str(j) + "                 " + "          " + str(accuracy) + "\n")
 
 file.close()
 
