@@ -28,10 +28,10 @@ from keras.layers import Dense
 from sklearn.metrics import confusion_matrix
 file = open("MAGIC_Telescope_accuracy_double.txt","w")
 file.write("# of Hidden Nodes" + "          " + "Accuracy\n")
-for j in range(1,11):
+for j in range(7,11):
 	classifier = Sequential()
-	classifier.add(Dense(units = j, kernel_initializer = 'uniform', activation = 'relu', input_dim = 10))
-	classifier.add(Dense(units = j, kernel_initializer = 'uniform', activation = 'relu'))
+	classifier.add(Dense(units = j, kernel_initializer = 'uniform', activation = 'sigmoid', input_dim = 10))
+	classifier.add(Dense(units = j, kernel_initializer = 'uniform', activation = 'sigmoid'))
 	classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 	classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 	classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
