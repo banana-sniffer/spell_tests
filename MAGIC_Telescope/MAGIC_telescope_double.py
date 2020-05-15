@@ -26,7 +26,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.metrics import confusion_matrix
-file = open("MAGIC_Telescope_accuracy_double.txt","w")
+file = open("MAGIC_Telescope_accuracy_double.txt","a")
 file.write("# of Hidden Nodes" + "          " + "Accuracy\n")
 for j in range(7,11):
 	classifier = Sequential()

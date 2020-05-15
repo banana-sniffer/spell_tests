@@ -33,7 +33,7 @@ for j in range(8,11):
 	classifier.add(Dense(units = j, kernel_initializer = 'uniform', activation = 'sigmoid', input_dim = 10))
 	classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
 	classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
-	classifier.fit(X_train, y_train, batch_size = 16, epochs = 75)
+	classifier.fit(X_train, y_train, batch_size = 32, epochs = 75, verbose = 2, validation_data = 0.2)
 	y_pred = classifier.predict(X_test)
 	y_pred = (y_pred > 0.5)
 	
