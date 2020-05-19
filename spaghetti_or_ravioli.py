@@ -7,11 +7,6 @@ from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
 
-# Getting the dataset from spell
-import sys
-uploaded_training_set = sys.argv[1]
-uploaded_test_set = sys.argv[2]
-
 # Initializing the CNN
 classifier = Sequential()
 
